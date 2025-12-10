@@ -25,4 +25,17 @@ public class BinarySearchTreeServiceTest {
         assertEquals(3, root.getRight().getLeft().getValue());
         assertEquals(5, root.getRight().getRight().getValue());
     }
+
+    @Test
+    void buildTreeResponseFromInput_buildsCorrectDtoStructure() {
+        TreeResponseDto response = service.buildTreeResponseFromInput("2, 1, 4, 3, 5");
+        TreeNodeDto root = response.getRoot();
+
+        assertNotNull(root);
+        assertEquals(2, root.getValue());
+        assertEquals(1, root.getLeft().getValue());
+        assertEquals(4, root.getRight().getValue());
+        assertEquals(3, root.getRight().getLeft().getValue());
+        assertEquals(5, root.getRight().getRight().getValue());
+    }
 }
