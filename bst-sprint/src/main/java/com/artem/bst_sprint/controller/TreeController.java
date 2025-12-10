@@ -72,7 +72,7 @@ public class TreeController {
     var results = treeResultRepository.findAll(
             Sort.by(Sort.Direction.DESC, "createdAt")
     );
-    model.addAttribute("results", results);
+    model.addAttribute("trees", results);
     return "previous-trees";
 }
 }
