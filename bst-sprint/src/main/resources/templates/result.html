@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Tree Result</title>
+</head>
+<body>
+<h1>Tree Result</h1>
+
+<p>
+    <strong>Input numbers:</strong>
+    <span th:text="${numbersInput}">1, 4, 2, 5, 3</span>
+</p>
+
+<h2>JSON Representation:</h2>
+<pre th:text="${jsonResult}">
+{
+  "root": {
+    "value": 2
+  }
+}
+</pre>
+
+<a href="/enter-numbers">Back</a>
+
+</body>
+</html>

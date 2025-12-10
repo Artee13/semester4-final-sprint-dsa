@@ -1,8 +1,11 @@
 package com.artem.bst_sprint.dsa;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class BinarySearchTreeService {
 
     // parses users input (string into list of integers)
