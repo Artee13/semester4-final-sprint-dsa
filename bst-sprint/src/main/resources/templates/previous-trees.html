@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Previous Trees</title>
+</head>
+<body>
+<h1>Previous Trees</h1>
+
+<p>
+    <a href="/enter-numbers">Back to form</a>
+</p>
+
+<table border="1" cellpadding="6" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Input numbers</th>
+        <th>Created at</th>
+        <th>JSON tree</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="res : ${results}">
+        <td th:text="${res.id}">1</td>
+        <td th:text="${res.numbersInput}">2, 1, 4, 3, 5</td>
+        <td th:text="${res.createdAt}">2025-12-10T08:30</td>
+        <td>
+            <pre th:text="${res.jsonTree}">
+{
+  "root": { "value": 2 }
+}
+            </pre>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

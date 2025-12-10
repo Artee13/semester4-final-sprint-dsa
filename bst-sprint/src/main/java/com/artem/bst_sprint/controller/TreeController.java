@@ -2,9 +2,15 @@ package com.artem.bst_sprint.controller;
 
 import com.artem.bst_sprint.dsa.BinarySearchTreeService;
 import com.artem.bst_sprint.dsa.TreeResponseDto;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
+import com.artem.bst_sprint.model.TreeResult;
+import com.artem.bst_sprint.repository.TreeResultRepository;
+import org.springframework.data.domain.Sort;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TreeController {
 
     private final BinarySearchTreeService treeService;
+    private final TreeResultRepository treeResultRepository;
 
-    public TreeController(BinarySearchTreeService treeService) {
+    public TreeController(BinarySearchTreeService treeService,
+                          TreeResultRepository treeResultRepository) {
         this.treeService = treeService;
+        this.treeResultRepository = treeResultRepository;
     }
 
     // optional: redirect "/" to "/enter-numbers"
@@ -47,10 +56,23 @@ public class TreeController {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         String json = mapper.writeValueAsString(responseDto);
 
+        // save to database
+        TreeResult entity = new TreeResult(numbersInput, json);
+        treeResultRepository.save(entity);
+
         // send data to template
         model.addAttribute("numbersInput", numbersInput);
         model.addAttribute("jsonResult", json);
 
         return "result"; // name of html file
     }
+
+    @GetMapping("/previous-trees")
+    public String showPreviousTrees(Model model) {
+    var results = treeResultRepository.findAll(
+            Sort.by(Sort.Direction.DESC, "createdAt")
+    );
+    model.addAttribute("results", results);
+    return "previous-trees";
+}
 }
